@@ -1,0 +1,22 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h1>代码上传情况</h1>
+<table border="1" cellspacing="0" style="collapse: collapse">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>行数</th>
+        <th>日期</th>
+    </tr>
+    <tbody>
+    {% for row in data_list %}
+    <tr>
+        <td>{{row.id}}</td>
+        <td>{{row.line}}</td>
+        <td>{{row.ctime}}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+    </thead>
+</table>
+{% endblock %}
