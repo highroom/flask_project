@@ -10,7 +10,7 @@ account = Blueprint('account', __name__)
 @account.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'GET':
-        return render_template('login.html')
+        return render_template('login_noajax.html')
 
     username = request.form.get('user')
     password = request.form.get('pwd')
@@ -20,7 +20,7 @@ def login():
     data = helper.fetch_one("select id,nickname from userinfo where user=%s and pwd =%s",(username,pwd_md5))
 
     if not data:
-        return render_template('login.html', error='用户名密码错误')
+        return render_template('login_noajax.html', error='用户名密码错误')
 
     # session['user_info'] = data
     session['user_info'] = {'id':data['id'],'nickname':data['nickname']}

@@ -31,3 +31,22 @@ def logout():
     if 'user_info' in session:
         del session['user_info']
     return redirect('/login')
+
+
+@account.route('/login_ajax', methods=['GET', 'POST'])
+def login_ajax():
+    if not request.values:
+        return render_template('login.html')
+    username = request.values.get('user')
+    password = request.values.get('pwd')
+
+    pwd_md5 = md5(password)
+
+    sql = "select id, nickname from userinfo where user=? and pwd = ?"
+    data = DbClient.fetch_one(sql, (username, pwd_md5))
+
+    if data:
+        session['user_info'] = data
+        return 'True'
+    else:
+        return 'False'
